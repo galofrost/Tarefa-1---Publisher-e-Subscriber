@@ -41,8 +41,9 @@ entry_points={
 Agora, com o Publisher e Subscriber criados, volte para o início (cd ~/ros2_ws). Para checar se todos as dependências estão funcionando, digite o comando:
 - rosdep install -i --from-path src --rosdistro humble -y
 
-Feito isso, agora só falta criar novamente o pacote com o comando à seguir:
+Feito isso, agora só falta criar novamente o pacote e instalar novamente o setup com os comandos à seguir:
 - colcon build
+- source install/setup.bash
 
 Tudo está pronto, agora apenas é necessario rodar o comando para testar se está funcionando. Abra um novo terminal e entre no diretório ros2_ws (cd ~/ros2_ws) e instale o setup novamente:
 - source install/setup.bash

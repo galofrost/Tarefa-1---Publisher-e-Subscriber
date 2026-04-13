@@ -1,9 +1,31 @@
 Para iniciar a criação de um Publisher e um Subscriber, primeiro é necessário verificar se o Ros2 está devidamente instalado e ativado em seu computador. 
+- Digite o comando: source /opt/ros/humble/setup.bash (Caso esteja ativado, não aparecerá nada de diferente, apenas indo para a próxima linha de código. Caso não esteja instalado o ros2, aparecerá alguma mensagem de erro)
 
 Além disso, é preciso ter a "colcon" instalada, para assim criar pacotes. Para tal, é necessário apenas ter o Ros2 instalado em seu computador e digitar o comando:
 - sudo apt install python3-colcon-common-extensions
-
+  
 Com isso feito, partimos para a próxima parte, que é criar o "workspace" onde seu pacote será criado. Entre os comandos:
 - mkdir -p ~/ros2_ws/src (Irá criar ambos diretórios que são essenciais para os próximos passos)
 - cd ~/ros2_ws/src (Você entrará no diretório para codar dentro dele)
 
+Dentro do diretíro "src", digite o comando à seguir para criar o pacote onde estarão localizados o Publisher e Subscriber:
+- ros2 pkg create --build-type ament_python --license Apache-2.0 Pubsub
+
+Entre então nesse diretório (cd ~/ros2_ws/src/Pubsub/Pubsub) e digite o comando à seguir para criar o Publisher:
+- wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_publisher/examples_rclpy_minimal_publisher/publisher_member_function.py
+
+Dentro desse mesmo diretório, digite o comando à seguir para criar o Subscriber:
+- wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_subscriber/examples_rclpy_minimal_subscriber/subscriber_member_function.py
+
+Agora, com o Publisher e Subscriber criados, volte para o início (cd ~/ros2_ws). Para checar se todos as dependências estão funcionando, digite o comando:
+- rosdep install -i --from-path src --rosdistro humble -y
+
+Feito isso, agora só falta criar novamente o pacote com o comando à seguir:
+- colcon build
+
+Tudo está pronto, agora apenas é necessario rodar o comando para testar se está funcionando. Abra um novo terminal e entre no diretório ros2_ws (cd ~/ros2_ws) e instale o setup novamente:
+- source install/setup.bash
+
+Em cada um dos terminais, rode os comandos a seguir:
+- ros2 run Pubsub talker
+- ros2 run Pubsub listener

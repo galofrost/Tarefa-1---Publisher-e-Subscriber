@@ -9,7 +9,8 @@ Além disso, é necessário ter o colcon instalado, pois ele será utilizado par
 Com isso pronto, o próximo passo é criar o workspace, que será o ambiente onde seu pacote ficará localizado.
 
 Execute os seguintes comandos:
-```python mkdir -p ~/ros2_ws/src (Cria os diretórios necessários)```
+```python 
+mkdir -p ~/ros2_ws/src (Cria os diretórios necessários)```bash
 - cd ~/ros2_ws/src (Entra no diretório onde o pacote será desenvolvido)
 
 Dentro do diretório src, crie o pacote que conterá o Publisher e o Subscriber:

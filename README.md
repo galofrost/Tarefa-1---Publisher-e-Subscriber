@@ -31,11 +31,11 @@ cd ~/ros2_ws/src
 
 Dentro do diretório src, crie o pacote que conterá o Publisher e o Subscriber:
 ```bash
-ros2 pkg create --build-type ament_python --license Apache-2.0 Pubsub
+ros2 pkg create --build-type ament_python --license Apache-2.0 pub_sub
 ```
 Agora, acesse o diretório do pacote:
 ```bash
-cd ~/ros2_ws/src/Pubsub/Pubsub
+cd ~/ros2_ws/src/pub_sub/pub_sub
 ```
 
 Em seguida, crie o Publisher com o comando:
@@ -50,7 +50,7 @@ wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal
 
 Depois disso, volte para o diretório principal do pacote:
 ```bash
-cd ~/ros2_ws/src/Pubsub
+cd ~/ros2_ws/src/pub_sub
 ```
 
 Agora, edite o arquivo package.xml para adicionar as dependências necessárias:
@@ -80,7 +80,8 @@ entry_points={
         'console_scripts': [
         ],
 },
-
+```
+```xml
 Por:
 
 entry_points={
@@ -117,7 +118,7 @@ source install/setup.bash
 
 Em terminais separados, execute:
 ```bash
-ros2 run Pubsub talker
-ros2 run Pubsub listener
+ros2 run pub_sub talker
+ros2 run pub_sub listener
 ```
 Se tudo estiver correto, o Publisher (talker) começará a enviar mensagens e o Subscriber (listener) irá recebê-las.

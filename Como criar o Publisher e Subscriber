@@ -1,5 +1,7 @@
-Para iniciar a criação de um Publisher e um Subscriber, primeiro é necessário verificar se o ROS2 está devidamente instalado e configurado no seu computador. Para isso, digite o seguinte comando no terminal:
-- source /opt/ros/humble/setup.bash
+Para iniciar a criação de um Publisher e um Subscriber, primeiro é necessário verificar se o ROS2 está devidamente instalado e configurado no seu computador. Para isso, digite o seguinte comando no terminal:  
+```bash
+source /opt/ros/humble/setup.bash
+```
 
 Se o ROS2 estiver corretamente instalado, o terminal apenas avançará para a próxima linha sem exibir mensagens. Caso contrário, será exibido algum erro indicando que a instalação não foi encontrada.
 

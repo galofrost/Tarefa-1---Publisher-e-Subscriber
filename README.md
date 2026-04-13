@@ -8,3 +8,87 @@ O próximo passo é configurar o sistema de build. No caso de C++, você ajusta 
 Com tudo configurado, você compila o workspace usando o colcon build e depois ativa o ambiente com o comando source. Isso faz com que o ROS 2 reconheça o novo package e seus executáveis. A partir daí, você já pode rodar o publisher e o subscriber em terminais separados. O publisher será responsável por enviar mensagens para um tópico específico, enquanto o subscriber se conecta a esse mesmo tópico para receber e processar essas mensagens.
 
 Por fim, é importante validar se a comunicação está funcionando corretamente. Isso pode ser feito verificando os tópicos ativos, listando os nós em execução e observando se as mensagens estão sendo transmitidas entre eles. Em resumo, o processo envolve: criar o package, estruturar os arquivos, configurar o build, compilar o workspace e executar os nós — tudo isso sem precisar focar diretamente na implementação do código em si, mas sim na organização e integração dentro do ecossistema do ROS 2.
+
+Para iniciar a criação de um Publisher e um Subscriber, primeiro é necessário verificar se o ROS2 está devidamente instalado e configurado no seu computador. Para isso, digite o seguinte comando no terminal:  
+```bash
+source /opt/ros/humble/setup.bash
+```
+
+Se o ROS2 estiver corretamente instalado, o terminal apenas avançará para a próxima linha sem exibir mensagens. Caso contrário, será exibido algum erro indicando que a instalação não foi encontrada.
+
+Além disso, é necessário ter o colcon instalado, pois ele será utilizado para criar e compilar pacotes. Normalmente, ele já vem com o ROS2, mas caso não esteja disponível, instale com o comando:
+- sudo apt install python3-colcon-common-extensions
+
+Com isso pronto, o próximo passo é criar o workspace, que será o ambiente onde seu pacote ficará localizado.
+
+Execute os seguintes comandos:
+- mkdir -p ~/ros2_ws/src
+- cd ~/ros2_ws/src
+
+Dentro do diretório src, crie o pacote que conterá o Publisher e o Subscriber:
+- ros2 pkg create --build-type ament_python --license Apache-2.0 Pubsub
+
+Agora, acesse o diretório do pacote:
+- cd ~/ros2_ws/src/Pubsub/Pubsub
+
+Em seguida, crie o Publisher com o comando:
+- wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_publisher/examples_rclpy_minimal_publisher/publisher_member_function.py
+
+Ainda nesse mesmo diretório, crie o Subscriber:
+- wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_subscriber/examples_rclpy_minimal_subscriber/subscriber_member_function.py
+
+Depois disso, volte para o diretório principal do pacote:
+- cd ~/ros2_ws/src/Pubsub
+
+Agora, edite o arquivo package.xml para adicionar as dependências necessárias:
+- nano package.xml
+
+Logo abaixo das tags de descrição, maintainer e licença, adicione:
+
+<exec_depend>rclpy</exec_depend>
+<exec_depend>std_msgs</exec_depend>
+
+Importante: certifique-se de a Descrição, Maintainer e Licença estão exatamente iguais tanto no package.xml quanto no setup.py.
+
+Salve o arquivo (Ctrl + O, depois Enter) e saia (Ctrl + X).
+
+Agora, edite o arquivo setup.py:
+- nano setup.py
+
+Substitua:
+
+entry_points={
+        'console_scripts': [
+        ],
+},
+
+Por:
+
+entry_points={
+        'console_scripts': [
+                'talker = Pubsub.publisher_member_function:main',
+                'listener = Pubsub.subscriber_member_function:main',
+        ],
+},
+
+Salve e saia do arquivo.
+
+Com tudo configurado, volte para o diretório raiz do workspace:
+- cd ~/ros2_ws
+
+Verifique e instale possíveis dependências com:
+- rosdep install -i --from-path src --rosdistro humble -y
+
+Agora, compile o pacote e configure o ambiente:
+- colcon build
+- source install/setup.bash
+
+Tudo está pronto! Para testar, abra um novo terminal, vá até o workspace e ative o ambiente novamente:
+- cd ~/ros2_ws
+- source install/setup.bash
+
+Em terminais separados, execute:
+- ros2 run Pubsub talker
+- ros2 run Pubsub listener
+
+Se tudo estiver correto, o Publisher (talker) começará a enviar mensagens e o Subscriber (listener) irá recebê-las.

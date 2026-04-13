@@ -17,46 +17,65 @@ source /opt/ros/humble/setup.bash
 Se o ROS2 estiver corretamente instalado, o terminal apenas avançará para a próxima linha sem exibir mensagens. Caso contrário, será exibido algum erro indicando que a instalação não foi encontrada.
 
 Além disso, é necessário ter o colcon instalado, pois ele será utilizado para criar e compilar pacotes. Normalmente, ele já vem com o ROS2, mas caso não esteja disponível, instale com o comando:
-- sudo apt install python3-colcon-common-extensions
+```bash
+sudo apt install python3-colcon-common-extensions
+```
 
 Com isso pronto, o próximo passo é criar o workspace, que será o ambiente onde seu pacote ficará localizado.
 
 Execute os seguintes comandos:
-- mkdir -p ~/ros2_ws/src
-- cd ~/ros2_ws/src
+```bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+```
 
 Dentro do diretório src, crie o pacote que conterá o Publisher e o Subscriber:
-- ros2 pkg create --build-type ament_python --license Apache-2.0 Pubsub
-
+```bash
+ros2 pkg create --build-type ament_python --license Apache-2.0 Pubsub
+```
 Agora, acesse o diretório do pacote:
-- cd ~/ros2_ws/src/Pubsub/Pubsub
+```bash
+cd ~/ros2_ws/src/Pubsub/Pubsub
+```
 
 Em seguida, crie o Publisher com o comando:
-- wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_publisher/examples_rclpy_minimal_publisher/publisher_member_function.py
+```bash
+wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_publisher/examples_rclpy_minimal_publisher/publisher_member_function.py
+```
 
 Ainda nesse mesmo diretório, crie o Subscriber:
-- wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_subscriber/examples_rclpy_minimal_subscriber/subscriber_member_function.py
+```bash
+wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_subscriber/examples_rclpy_minimal_subscriber/subscriber_member_function.py
+```
 
 Depois disso, volte para o diretório principal do pacote:
-- cd ~/ros2_ws/src/Pubsub
+```bash
+cd ~/ros2_ws/src/Pubsub
+```
 
 Agora, edite o arquivo package.xml para adicionar as dependências necessárias:
-- nano package.xml
+```bash
+nano package.xml
+```
 
 Logo abaixo das tags de descrição, maintainer e licença, adicione:
-
+```xml
 <exec_depend>rclpy</exec_depend>
 <exec_depend>std_msgs</exec_depend>
+```
 
 Importante: certifique-se de a Descrição, Maintainer e Licença estão exatamente iguais tanto no package.xml quanto no setup.py.
 
 Salve o arquivo (Ctrl + O, depois Enter) e saia (Ctrl + X).
 
 Agora, edite o arquivo setup.py:
-- nano setup.py
+```bash
+nano setup.py
+```
 
 Substitua:
 
+```xml
 entry_points={
         'console_scripts': [
         ],
@@ -70,25 +89,35 @@ entry_points={
                 'listener = Pubsub.subscriber_member_function:main',
         ],
 },
+```
 
 Salve e saia do arquivo.
 
 Com tudo configurado, volte para o diretório raiz do workspace:
-- cd ~/ros2_ws
+```bash
+cd ~/ros2_ws
+```
 
 Verifique e instale possíveis dependências com:
-- rosdep install -i --from-path src --rosdistro humble -y
+```bash
+rosdep install -i --from-path src --rosdistro humble -y
+```
 
 Agora, compile o pacote e configure o ambiente:
-- colcon build
-- source install/setup.bash
+```bash
+colcon build
+source install/setup.bash
+```
 
 Tudo está pronto! Para testar, abra um novo terminal, vá até o workspace e ative o ambiente novamente:
-- cd ~/ros2_ws
-- source install/setup.bash
+```bash
+cd ~/ros2_ws
+source install/setup.bash
+```
 
 Em terminais separados, execute:
-- ros2 run Pubsub talker
-- ros2 run Pubsub listener
-
+```bash
+ros2 run Pubsub talker
+ros2 run Pubsub listener
+```
 Se tudo estiver correto, o Publisher (talker) começará a enviar mensagens e o Subscriber (listener) irá recebê-las.

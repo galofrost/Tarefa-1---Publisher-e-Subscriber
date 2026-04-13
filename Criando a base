@@ -17,6 +17,27 @@ Entre então nesse diretório (cd ~/ros2_ws/src/Pubsub/Pubsub) e digite o comand
 Dentro desse mesmo diretório, digite o comando à seguir para criar o Subscriber:
 - wget https://raw.githubusercontent.com/ros2/examples/humble/rclpy/topics/minimal_subscriber/examples_rclpy_minimal_subscriber/subscriber_member_function.py
 
+Com ambos criados, volte para o diretório Pubsub (cd ~/ros2_ws/src/Pubsub) e entre no package.xml para adicionar as dependências correspondetes ao nó
+- nano package.xml
+- Logo abaixo da descrição, mantainer e licensa, adicione as duas linhas à seguir (Tenha certeza que esses três estejam idênticos no "package.xml" e "setup.py"):
+<exec_depend>rclpy</exec_depend>
+<exec_depend>std_msgs</exec_depend>
+- Salve o código (Cntrl + O) e aperte Enter, então saia (Cntrl + X) e entre no setup.py
+- nano setup.py
+- Substitua:
+entry_points={
+        'console_scripts': [
+        ],
+},
+Por:
+entry_points={
+        'console_scripts': [
+                'talker = Pubsub.publisher_member_function:main',
+                'listener = Pubsub.subscriber_member_function:main',
+        ],
+},
+- Salve novamente e saia
+
 Agora, com o Publisher e Subscriber criados, volte para o início (cd ~/ros2_ws). Para checar se todos as dependências estão funcionando, digite o comando:
 - rosdep install -i --from-path src --rosdistro humble -y
 

@@ -1,0 +1,9 @@
+Para iniciar a criação de um Publisher e um Subscriber, primeiro é necessário verificar se o Ros2 está devidamente instalado e ativado em seu computador. 
+
+Além disso, é preciso ter a "colcon" instalada, para assim criar pacotes. Para tal, é necessário apenas ter o Ros2 instalado em seu computador e digitar o comando:
+- sudo apt install python3-colcon-common-extensions
+
+Com isso feito, partimos para a próxima parte, que é criar o "workspace" onde seu pacote será criado. Entre os comandos:
+- mkdir -p ~/ros2_ws/src (Irá criar ambos diretórios que são essenciais para os próximos passos)
+- cd ~/ros2_ws/src (Você entrará no diretório para codar dentro dele)
+

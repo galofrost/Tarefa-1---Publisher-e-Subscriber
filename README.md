@@ -86,8 +86,8 @@ Por:
 
 entry_points={
         'console_scripts': [
-                'talker = Pubsub.publisher_member_function:main',
-                'listener = Pubsub.subscriber_member_function:main',
+                'talker = pub_sub.publisher_member_function:main',
+                'listener = pub_sub.subscriber_member_function:main',
         ],
 },
 ```

@@ -8,3 +8,5 @@ O próximo passo é configurar o sistema de build. No caso de C++, você ajusta 
 Com tudo configurado, você compila o workspace usando o colcon build e depois ativa o ambiente com o comando source. Isso faz com que o ROS 2 reconheça o novo package e seus executáveis. A partir daí, você já pode rodar o publisher e o subscriber em terminais separados. O publisher será responsável por enviar mensagens para um tópico específico, enquanto o subscriber se conecta a esse mesmo tópico para receber e processar essas mensagens.
 
 Por fim, é importante validar se a comunicação está funcionando corretamente. Isso pode ser feito verificando os tópicos ativos, listando os nós em execução e observando se as mensagens estão sendo transmitidas entre eles. Em resumo, o processo envolve: criar o package, estruturar os arquivos, configurar o build, compilar o workspace e executar os nós — tudo isso sem precisar focar diretamente na implementação do código em si, mas sim na organização e integração dentro do ecossistema do ROS 2.
+
+```mkdir -p ~/ros2_ws/src```
